@@ -1,15 +1,12 @@
 import styled from "styled-components/native";
 import Input from "../components/Input";
-import { useEffect, useState } from "react";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useState } from "react";
 import { Dimensions } from "react-native";
 import { WithLocalSvg } from "react-native-svg";
-import getSuggestList from "../api/Suggest";
 import { Content } from "../components/Content";
+import { Props } from "../@types/predefined";
 
-interface Props {
-  navigation: NativeStackNavigationProp<RootStackParams>;
-}
+type Props = {} & Props.Navigation;
 
 const Wrapper = styled.View`
   flex: 1;
