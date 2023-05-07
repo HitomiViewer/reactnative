@@ -2,10 +2,9 @@ import styled from "styled-components/native";
 import Input from "../components/Input";
 import { useState } from "react";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { Props } from "../@types/predefined";
 
-interface Props {
-  navigation: NativeStackNavigationProp<RootStackParams>;
-}
+type Props = {} & Props.Navigation;
 
 const Wrapper = styled.View`
   flex: 1;
