@@ -1,12 +1,15 @@
 import styled from "styled-components/native";
 import Input from "../components/Input";
 import { useState } from "react";
-import { Dimensions } from "react-native";
-import { WithLocalSvg } from "react-native-svg";
-import { Content } from "../components/Content";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { Props } from "../@types/predefined";
+import Navigation from "../components/Content/Navigation";
 
 type Props = {} & Props.Navigation;
+
+const TouchableWithoutFeedbackView = styled(TouchableWithoutFeedback)`
+  flex: 1;
+`;
 
 const Wrapper = styled.View`
   flex: 1;
@@ -14,7 +17,7 @@ const Wrapper = styled.View`
 `;
 
 const TitleWrapper = styled.View`
-  height: ${Dimensions.get("window").height}px;
+  flex: 1;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -32,24 +35,6 @@ const Description = styled.Text`
   margin-bottom: 20px;
 `;
 
-const Scroll = styled.ScrollView``;
-
-const DownWrapper = styled.View`
-  position: absolute;
-  bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Down = styled(WithLocalSvg)``;
-
-const DownText = styled.Text`
-  font-size: 16px;
-  font-weight: 400;
-  color: #969696;
-`;
-
 const Main = ({ navigation }: Props) => {
   const [search, setSearch] = useState<string>("");
 
@@ -59,8 +44,8 @@ const Main = ({ navigation }: Props) => {
 
   return (
     <>
-      <Wrapper>
-        <Scroll>
+      <TouchableWithoutFeedbackView onPress={Keyboard.dismiss}>
+        <Wrapper>
           <TitleWrapper>
             <Title>Hitomi Viewer</Title>
             <Description>검색어를 입력해주세요.</Description>
@@ -70,18 +55,10 @@ const Main = ({ navigation }: Props) => {
               returnKeyType="search"
               submitHandler={() => navigation.navigate("List", { search })}
             />
-            <DownWrapper>
-              <DownText>Scroll Down</DownText>
-              <Down
-                width={42}
-                height={42}
-                asset={require("../assets/icons/down.svg")}
-              />
-            </DownWrapper>
           </TitleWrapper>
-          <Content.List />
-        </Scroll>
-      </Wrapper>
+          <Navigation navigation={navigation} />
+        </Wrapper>
+      </TouchableWithoutFeedbackView>
     </>
   );
 };

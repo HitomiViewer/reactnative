@@ -3,6 +3,7 @@ import "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Main from "./screens/Main";
 import List from "./screens/List";
+import Detail from "./screens/Detail";
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -20,6 +21,13 @@ export default function App() {
         <Stack.Screen
           name="List"
           component={List}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Detail"
+          component={Detail}
           options={{
             headerShown: false,
           }}

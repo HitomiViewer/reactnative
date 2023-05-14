@@ -1,7 +1,10 @@
 import api from "..";
 
-const getSuggestList = async (page: number) => {
-  const res = await api.get(`/?page=${page}`);
+const getSuggestList = async (
+  page: number = 1,
+  language: string = "korean"
+) => {
+  const res = await api.get(`/?page=${page}&language=${language}`);
   return res.data;
 };
 
