@@ -30,7 +30,9 @@ const ItemText = styled.Text`
   font-weight: 700;
 `;
 
-const ItemIcon = styled(WithLocalSvg)``;
+// const ItemIcon = styled(WithLocalSvg)``;
+// const ItemIcon = styled((props: any) => (<WithLocalSvg {...props}></WithLocalSvg>))``;
+const ItemIcon = WithLocalSvg;
 
 const Navigation = ({ navigation }: Props.Navigation) => {
   return (
@@ -38,13 +40,11 @@ const Navigation = ({ navigation }: Props.Navigation) => {
       <Container>
         <ItemWrapper style={{ borderRightColor: "#000" }}>
           <Item onPress={() => navigation.navigate("Main")}>
-            <ItemIcon asset={require("../../assets/icons/home.svg")} />
             <ItemText>홈</ItemText>
           </Item>
         </ItemWrapper>
         <ItemWrapper>
           <Item onPress={() => navigation.navigate("List", { search: true })}>
-            <ItemIcon asset={require("../../assets/icons/suggest.svg")} />
             <ItemText>추천</ItemText>
           </Item>
         </ItemWrapper>

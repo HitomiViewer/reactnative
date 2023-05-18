@@ -1,3 +1,6 @@
+// import "react-native-url-polyfill/auto";
+import "react-native-get-random-values";
+import { nanoid } from "nanoid";
 import { NavigationContainer } from "@react-navigation/native";
 import "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
