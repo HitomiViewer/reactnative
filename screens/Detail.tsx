@@ -1,9 +1,10 @@
 import { RouteProp } from "@react-navigation/native";
 import styled from "styled-components/native";
-import { Dimensions, FlatList, Image, View } from "react-native";
+import { Dimensions, FlatList, Platform, View } from "react-native";
 import { SafeAreaView } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Keyboard } from "react-native";
+import { Content } from "../components/Content";
 
 type Props = {
   route: RouteProp<RootStackParams, "Detail">;
@@ -11,6 +12,7 @@ type Props = {
 
 const Wrapper = styled.View`
   flex: 1;
+  flex-direction: row;
 `;
 
 const Text = styled.Text`
@@ -39,24 +41,24 @@ const ArrowText = styled.Text`
 `;
 
 const Detail = (props: Props) => {
-  const [flatListRef, setFlatListRef] = useState<FlatList<string> | null>(null);
+  const flatListRef = useRef<FlatList<string>>(null);
   const [page, setPage] = useState<number>(0);
 
+  useEffect(() => {
+    if (Platform.OS === "web") {
+      console.warn("Web does not support scrollToIndex");
+      return;
+    }
+    flatListRef.current?.scrollToIndex({
+      index: page,
+    });
+  }, [page]);
+
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       <Wrapper>
         <Arrow
-          onPress={() =>
-            flatListRef?.scrollToIndex({
-              index: Math.max(
-                0,
-                Math.min(
-                  (props.route.params?.gallery.files.length as number) - 1,
-                  page - 1
-                )
-              ),
-            })
-          }
+          onPress={() => setPage(Math.max(0, page - 1))}
           style={{
             left: 40,
           }}
@@ -65,15 +67,12 @@ const Detail = (props: Props) => {
         </Arrow>
         <Arrow
           onPress={() =>
-            flatListRef?.scrollToIndex({
-              index: Math.max(
-                0,
-                Math.min(
-                  (props.route.params?.gallery.files.length as number) - 1,
-                  page + 1
-                )
-              ),
-            })
+            setPage(
+              Math.min(
+                (props.route.params?.gallery.files.length as number) - 1,
+                page + 1
+              )
+            )
           }
           style={{
             right: 40,
@@ -82,16 +81,18 @@ const Detail = (props: Props) => {
           <ArrowText>{">"}</ArrowText>
         </Arrow>
         <FlatList
-          ref={(res) => setFlatListRef(res)}
+          ref={flatListRef}
           style={{
             flex: 1,
           }}
           data={props.route.params?.gallery.files.map((e) => e.hash)}
           keyExtractor={(item) => item}
+          initialNumToRender={2}
+          maxToRenderPerBatch={2}
           pagingEnabled
           horizontal
-          showsHorizontalScrollIndicator={false}
-          onScroll={(e) => {
+          showsHorizontalScrollIndicator={true}
+          onMomentumScrollEnd={(e) => {
             setPage(
               Math.round(
                 e.nativeEvent.contentOffset.x / Dimensions.get("window").width
@@ -105,7 +106,7 @@ const Detail = (props: Props) => {
                 height: Dimensions.get("window").height,
               }}
             >
-              <Image
+              <Content.Image
                 style={{
                   width: Dimensions.get("window").width,
                   height: Dimensions.get("window").height,
@@ -128,7 +129,7 @@ const Detail = (props: Props) => {
           )}
         />
       </Wrapper>
-    </>
+    </SafeAreaView>
   );
 };
 

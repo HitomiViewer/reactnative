@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { Props } from "../@types/predefined";
 import Navigation from "../components/Content/Navigation";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 type Props = {} & Props.Navigation;
 
@@ -43,23 +44,21 @@ const Main = ({ navigation }: Props) => {
   };
 
   return (
-    <>
-      <TouchableWithoutFeedbackView onPress={Keyboard.dismiss}>
-        <Wrapper>
-          <TitleWrapper>
-            <Title>Hitomi Viewer</Title>
-            <Description>검색어를 입력해주세요.</Description>
-            <Input
-              value={search}
-              handler={handleSearch}
-              returnKeyType="search"
-              submitHandler={() => navigation.navigate("List", { search })}
-            />
-          </TitleWrapper>
-          <Navigation navigation={navigation} />
-        </Wrapper>
-      </TouchableWithoutFeedbackView>
-    </>
+    <TouchableWithoutFeedbackView onPress={Keyboard.dismiss}>
+      <Wrapper>
+        <TitleWrapper>
+          <Title>Hitomi Viewer</Title>
+          <Description>검색어를 입력해주세요.</Description>
+          <Input
+            value={search}
+            handler={handleSearch}
+            returnKeyType="search"
+            submitHandler={() => navigation.navigate("List", { search })}
+          />
+        </TitleWrapper>
+        <Navigation navigation={navigation} />
+      </Wrapper>
+    </TouchableWithoutFeedbackView>
   );
 };
 

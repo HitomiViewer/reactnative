@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Wrapper = styled.View`
-  height: 100%;
+  flex: 1;
 `;
 
 const List = (props: Props) => {
@@ -19,6 +19,7 @@ const List = (props: Props) => {
           data={props.galleryList}
           keyExtractor={(item) => (item as number).toString()}
           renderItem={({ item }) => <Content.Item number={item} />}
+          initialNumToRender={2}
           onEndReached={props.onEndReached}
           onEndReachedThreshold={0.8}
         />

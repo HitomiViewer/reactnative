@@ -4,6 +4,7 @@ import { Detail as IDetail } from "../../@types/hitomi";
 import getDetail from "../../api/Detail";
 import Tag from "./Tag";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
+import RetryImage from "./Image";
 
 type Props = {
   number: number;
@@ -27,7 +28,8 @@ const Content = styled.View`
 const TagWrapper = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 2px 4px;
+  row-gap: 2px;
+  column-gap: 4px;
   padding-left: 12px;
 `;
 
@@ -37,7 +39,7 @@ const Title = styled.Text`
   margin: 10px 10px;
 `;
 
-const Image = styled.Image`
+const Image = styled(RetryImage)`
   width: 80px;
   height: 100px;
 `;
@@ -52,7 +54,6 @@ const Loading = styled.ActivityIndicator``;
 
 const Item = (props: Props) => {
   const [gallery, setGallery] = useState<IDetail>();
-  const [imageLoad, setImageLoad] = useState<boolean>(false);
 
   useEffect(
     () => void getDetail(props.number).then((res) => setGallery(res)),
@@ -70,23 +71,10 @@ const Item = (props: Props) => {
       >
         {gallery ? (
           <>
-            {imageLoad && (
-              <LoadingWrapper
-                style={{
-                  width: 80,
-                  height: 100,
-                }}
-              >
-                <Loading size="small" color="#000000" />
-              </LoadingWrapper>
-            )}
             <Image
-              style={{ display: imageLoad ? "none" : "flex" }}
               source={{
                 uri: `https://api.toshu.me/images/webp/${gallery?.files[0].hash}`,
               }}
-              onLoadStart={() => setImageLoad(true)}
-              onLoadEnd={() => setImageLoad(false)}
               resizeMode="contain"
             />
             <Content>

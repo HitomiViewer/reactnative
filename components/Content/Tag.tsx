@@ -24,9 +24,9 @@ const Tag = (props: Props) => {
       <Wrapper
         style={{
           backgroundColor:
-            parseInt(props.tag.female) === 1
+            props.tag.female == "1"
               ? "#ff6d6d"
-              : parseInt(props.tag.male) === 1
+              : props.tag.male == "1"
               ? "#4195f4"
               : "#bdbdbd",
         }}

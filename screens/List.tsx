@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 import getSuggestList from "../api/Suggest";
 import { Content } from "../components/Content";
 import getSearchList from "../api/Search";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 type Props = {
   route: RouteProp<RootStackParams, "List">;
 } & Props.Navigation;
 
-const Wrapper = styled.SafeAreaView`
+const Wrapper = styled.View`
   flex: 1;
   background-color: #fff;
 `;
@@ -51,7 +52,7 @@ const List = (props: Props) => {
   };
 
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       <Wrapper>
         <Title>
           {props.route.params?.search === true
@@ -63,7 +64,7 @@ const List = (props: Props) => {
           onEndReached={handleEndReached}
         />
       </Wrapper>
-    </>
+    </SafeAreaView>
   );
 };
 

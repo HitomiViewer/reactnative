@@ -32,7 +32,7 @@ const ItemText = styled.Text`
 
 // const ItemIcon = styled(WithLocalSvg)``;
 // const ItemIcon = styled((props: any) => (<WithLocalSvg {...props}></WithLocalSvg>))``;
-const ItemIcon = WithLocalSvg;
+// const ItemIcon = WithLocalSvg;
 
 const Navigation = ({ navigation }: Props.Navigation) => {
   return (
