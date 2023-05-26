@@ -113,12 +113,7 @@ const Detail = (props: Props) => {
             );
           }}
           renderItem={({ item, index }) => (
-            <View
-              style={{
-                width: Dimensions.get("window").width,
-                height: Dimensions.get("window").height,
-              }}
-            >
+            <Content.Fullsize>
               <Image
                 source={{
                   uri: `https://api.toshu.me/images/webp/${item}`,
@@ -133,7 +128,7 @@ const Detail = (props: Props) => {
                   {index + 1} / {props.route.params?.gallery.files.length}
                 </Text>
               </SafeAreaView>
-            </View>
+            </Content.Fullsize>
           )}
         />
       </Wrapper>
