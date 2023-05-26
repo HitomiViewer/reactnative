@@ -1,6 +1,7 @@
+import { Dimensions, FlatList } from "react-native";
 import styled from "styled-components/native";
-import { Content } from ".";
-import { FlatList } from "react-native";
+
+import Item from "./Item";
 
 type Props = {
   galleryList: Array<number>;
@@ -8,7 +9,8 @@ type Props = {
 };
 
 const Wrapper = styled.View`
-  flex: 1;
+  width: ${Dimensions.get("window").width}px;
+  height: ${Dimensions.get("window").height}px;
 `;
 
 const List = (props: Props) => {
@@ -18,7 +20,7 @@ const List = (props: Props) => {
         <FlatList
           data={props.galleryList}
           keyExtractor={(item) => (item as number).toString()}
-          renderItem={({ item }) => <Content.Item number={item} />}
+          renderItem={({ item }) => <Item number={item} />}
           initialNumToRender={2}
           onEndReached={props.onEndReached}
           onEndReachedThreshold={0.8}

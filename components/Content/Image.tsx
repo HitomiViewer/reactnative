@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Image as NativeImage, ImageProps, View } from "react-native";
+import { useRef, useState } from "react";
+import { Image as NativeImage, ImageProps } from "expo-image";
 import styled from "styled-components/native";
 
 const Wrapper = styled.View``;

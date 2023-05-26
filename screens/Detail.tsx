@@ -40,13 +40,26 @@ const ArrowText = styled.Text`
   font-size: 18px;
 `;
 
+const Image = styled(Content.Image)`
+  width: ${Dimensions.get("window").width}px;
+  height: ${Dimensions.get("window").height}px;
+  content-fit: contain;
+`;
+
 const Detail = (props: Props) => {
   const flatListRef = useRef<FlatList<string>>(null);
   const [page, setPage] = useState<number>(0);
 
   useEffect(() => {
     if (Platform.OS === "web") {
-      console.warn("Web does not support scrollToIndex");
+      const node: HTMLElement | null = flatListRef.current?.getScrollableNode();
+      if (node) {
+        node.scrollTo({
+          x: Dimensions.get("window").width * page,
+          y: 0,
+          animated: true,
+        });
+      }
       return;
     }
     flatListRef.current?.scrollToIndex({
@@ -106,15 +119,10 @@ const Detail = (props: Props) => {
                 height: Dimensions.get("window").height,
               }}
             >
-              <Content.Image
-                style={{
-                  width: Dimensions.get("window").width,
-                  height: Dimensions.get("window").height,
-                }}
+              <Image
                 source={{
                   uri: `https://api.toshu.me/images/webp/${item}`,
                 }}
-                resizeMode="contain"
               />
               <SafeAreaView
                 style={{
