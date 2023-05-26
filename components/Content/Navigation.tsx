@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { WithLocalSvg } from "react-native-svg";
 import styled from "styled-components/native";
 import { Props } from "../../@types/predefined";
+import { Icons } from "../Icons";
 
 const Container = styled.View`
   height: 80px;
@@ -40,11 +41,15 @@ const Navigation = ({ navigation }: Props.Navigation) => {
       <Container>
         <ItemWrapper style={{ borderRightColor: "#000" }}>
           <Item onPress={() => navigation.navigate("Main")}>
+            <Icons.Home />
+            {/* <ItemIcon asset={require("../../assets/icons/home.svg")} /> */}
             <ItemText>홈</ItemText>
           </Item>
         </ItemWrapper>
         <ItemWrapper>
           <Item onPress={() => navigation.navigate("List", { search: true })}>
+            <Icons.Suggest />
+            {/* <ItemIcon asset={require("../../assets/icons/suggest.svg")} /> */}
             <ItemText>추천</ItemText>
           </Item>
         </ItemWrapper>
